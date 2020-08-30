@@ -36,17 +36,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      assuntoPaiId: [null, []],
+      assuntoPaiId: ['5', []],
     });
   }
 
   get datasource(): IDatasource {
     return {
-      getNoComFilhos: (id: any) => {
+      getNoComFilhosEPais: (id: any) => {
         console.log('Executou getNoComFilhos');
+        const result = [];
         const no = this.getNo(id);
         this.popularFilhos(no);
-        return of(no);
+        result.push(no);
+        const pais = this.getPais(no.id)
+          .map(a => this.assuntoParaNoHierarquia(a));
+        result.push(...pais);
+        return of(result);
       },
       getPrimeiroNivel: () => {
         console.log('Executou getPrimeiroNivel');
@@ -60,6 +65,17 @@ export class AppComponent implements OnInit {
         return of(true);
       }
     };
+  }
+
+  private getPais(id: string): IAssunto[] {
+    const lista = [];
+    let assuntoCorrente = this._assuntos.find(a => a.id === id);
+    while (assuntoCorrente.idPai) {
+      const pai = this._assuntos.find(a => a.id === assuntoCorrente.idPai);
+      lista.push(pai);
+      assuntoCorrente = pai;
+    }
+    return lista;
   }
 
   private popularFilhos(no: INoHierarquia): void {

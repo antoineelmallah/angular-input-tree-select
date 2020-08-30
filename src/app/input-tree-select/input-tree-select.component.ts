@@ -140,8 +140,10 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
   writeValue(id: string): void {
     this.idSelecionado = id;
     if (id) {
-      this.datasource.getNoComFilhos(id).subscribe(no => {
-        this.noSelecionado = no;
+      this.datasource.getNoComFilhosEPais(id).subscribe(nos => {
+        this.adicionarAoCache(nos);
+        const no = nos.reduce((ant, corr, idx) => ant.nivel > corr.nivel ? ant : corr);
+        this.noSelecionado = this.getCachePorId(no.id);
       });
     }
   }
@@ -171,7 +173,7 @@ export interface INoHierarquia {
 }
 
 export interface IDatasource {
-  getNoComFilhos(id: string): Observable<INoHierarquia>;
+  getNoComFilhosEPais(id: string): Observable<INoHierarquia[]>;
   getPrimeiroNivel(): Observable<INoHierarquia[]>;
   popularFilhos(no: INoHierarquia): Observable<boolean>;
 }
