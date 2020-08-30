@@ -54,6 +54,9 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   get nos(): INoHierarquia[] {
     let no = this.noSelecionado;
+
+    if (!no) return [];
+    
     const nos: INoHierarquia[] = [];
     nos.push(no);
     while (no.paiId) {
