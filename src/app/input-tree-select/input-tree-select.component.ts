@@ -32,6 +32,14 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   private cachePorNiveis: Map<number, INoHierarquia[]> = new Map();
 
+  private getCachePorId(id: string): INoHierarquia {
+    this.cachePorNiveis.forEach(v => {
+      const no = v.find(i => String(i.id) === id);
+      if (no) return no;
+    });
+    return null;
+  }
+
   private filhosPrimeiroNivel: INoHierarquia[] = [];
 
   get filhos(): INoHierarquia[] {
@@ -48,9 +56,10 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
     let no = this.noSelecionado;
     const nos: INoHierarquia[] = [];
     nos.push(no);
-    while (no.pai) {
-      nos.push(no.pai);
-      no = no.pai;
+    while (no.paiId) {
+      const pai = this.getCachePorId(no.paiId);
+      nos.push(pai);
+      no = pai;
     }
     return nos.reverse();
   }
@@ -111,11 +120,11 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
 export interface INoHierarquia {
 
-  id: any;
+  id: string;
   chave: string;
   descricao: string;
   nivel: number;
-  pai?: INoHierarquia;
+  paiId?: string;
   filhosPopulados: boolean;
   filhos: INoHierarquia[];
 
@@ -123,7 +132,7 @@ export interface INoHierarquia {
 
 export interface IDatasource {
 
-  getNoComFilhos(id: any): Observable<INoHierarquia>;
+  getNoComFilhos(id: string): Observable<INoHierarquia>;
   getPrimeiroNivel(): Observable<INoHierarquia[]>;
   popularFilhos(no: INoHierarquia): Observable<void>;
 

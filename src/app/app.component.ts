@@ -11,23 +11,23 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AppComponent implements OnInit {
 
   private _assuntos: IAssunto[] = [
-    { id: 1,  idPai: 2,    nivel: 3, chave: 'CH1', hierarquia: 'CH3/CH2/CH1', assunto: 'Assunto 1'  },
-    { id: 2,  idPai: 3,    nivel: 2, chave: 'CH2', hierarquia: 'CH3/CH2',     assunto: 'Assunto 2'  },
-    { id: 3,  idPai: null, nivel: 1, chave: 'CH3', hierarquia: 'CH3',         assunto: 'Assunto 3'  },
-    { id: 4,  idPai: null, nivel: 1, chave: 'CH4', hierarquia: 'CH4',         assunto: 'Assunto 4'  },
-    { id: 5,  idPai: 3,    nivel: 2, chave: 'CH5', hierarquia: 'CH3/CH5',     assunto: 'Assunto 5'  },
-    { id: 6,  idPai: 2,    nivel: 3, chave: 'CH6', hierarquia: 'CH3/CH2/CH6', assunto: 'Assunto 6'  },
-    { id: 7,  idPai: 4,    nivel: 2, chave: 'CH7', hierarquia: 'CH4/CH7',     assunto: 'Assunto 7'  },
-    { id: 8,  idPai: null, nivel: 1, chave: 'CH8', hierarquia: 'CH8',         assunto: 'Assunto 8'  },
-    { id: 9,  idPai: 5,    nivel: 3, chave: 'CH9', hierarquia: 'CH3/CH5/CH9', assunto: 'Assunto 9'  },
-    { id: 10, idPai: 11,   nivel: 2, chave: 'CHa', hierarquia: 'CHs/CHa',     assunto: 'Assunto 10' },
-    { id: 11, idPai: null, nivel: 1, chave: 'CHs', hierarquia: 'CHs',         assunto: 'Assunto 11' },
-    { id: 12, idPai: 7,    nivel: 3, chave: 'CHd', hierarquia: 'CH4/CH7/CHd', assunto: 'Assunto 12' },
-    { id: 13, idPai: 11,   nivel: 2, chave: 'CHf', hierarquia: 'CHs/CHf',     assunto: 'Assunto 13' },
-    { id: 14, idPai: 7,    nivel: 3, chave: 'CHg', hierarquia: 'CH4/CH7/CHg', assunto: 'Assunto 14' },
-    { id: 15, idPai: 7,    nivel: 3, chave: 'CHh', hierarquia: 'CH4/CH7/CHh', assunto: 'Assunto 15' },
-    { id: 16, idPai: 11,   nivel: 2, chave: 'CHj', hierarquia: 'CHs/CHj',     assunto: 'Assunto 16' },
-    { id: 17, idPai: 11,   nivel: 2, chave: 'CHk', hierarquia: 'CHs/CHk',     assunto: 'Assunto 17' },
+    { id: '1',  idPai: '2',    nivel: 3, chave: 'CH1', hierarquia: 'CH3/CH2/CH1', assunto: 'Assunto 1'  },
+    { id: '2',  idPai: '3',    nivel: 2, chave: 'CH2', hierarquia: 'CH3/CH2',     assunto: 'Assunto 2'  },
+    { id: '3',  idPai: null,   nivel: 1, chave: 'CH3', hierarquia: 'CH3',         assunto: 'Assunto 3'  },
+    { id: '4',  idPai: null,   nivel: 1, chave: 'CH4', hierarquia: 'CH4',         assunto: 'Assunto 4'  },
+    { id: '5',  idPai: '3',    nivel: 2, chave: 'CH5', hierarquia: 'CH3/CH5',     assunto: 'Assunto 5'  },
+    { id: '6',  idPai: '2',    nivel: 3, chave: 'CH6', hierarquia: 'CH3/CH2/CH6', assunto: 'Assunto 6'  },
+    { id: '7',  idPai: '4',    nivel: 2, chave: 'CH7', hierarquia: 'CH4/CH7',     assunto: 'Assunto 7'  },
+    { id: '8',  idPai: null,   nivel: 1, chave: 'CH8', hierarquia: 'CH8',         assunto: 'Assunto 8'  },
+    { id: '9',  idPai: '5',    nivel: 3, chave: 'CH9', hierarquia: 'CH3/CH5/CH9', assunto: 'Assunto 9'  },
+    { id: '10', idPai: '11',   nivel: 2, chave: 'CHa', hierarquia: 'CHs/CHa',     assunto: 'Assunto 10' },
+    { id: '11', idPai: null,   nivel: 1, chave: 'CHs', hierarquia: 'CHs',         assunto: 'Assunto 11' },
+    { id: '12', idPai: '7',    nivel: 3, chave: 'CHd', hierarquia: 'CH4/CH7/CHd', assunto: 'Assunto 12' },
+    { id: '13', idPai: '11',   nivel: 2, chave: 'CHf', hierarquia: 'CHs/CHf',     assunto: 'Assunto 13' },
+    { id: '14', idPai: '7',    nivel: 3, chave: 'CHg', hierarquia: 'CH4/CH7/CHg', assunto: 'Assunto 14' },
+    { id: '15', idPai: '7',    nivel: 3, chave: 'CHh', hierarquia: 'CH4/CH7/CHh', assunto: 'Assunto 15' },
+    { id: '16', idPai: '11',   nivel: 2, chave: 'CHj', hierarquia: 'CHs/CHj',     assunto: 'Assunto 16' },
+    { id: '17', idPai: '11',   nivel: 2, chave: 'CHk', hierarquia: 'CHs/CHk',     assunto: 'Assunto 17' },
   ];
 
   form: FormGroup;
@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
   private getNo(id: any): INoHierarquia {
     const assunto = this._assuntos.find(a => a.id === id);
     const no = this.assuntoParaNoHierarquia(assunto);
-    if (assunto.idPai || assunto.idPai === 0) {
+    if (assunto.idPai) {
       no.filhos.push(this.getNo(assunto.idPai));
     }
     return no;
@@ -91,8 +91,8 @@ export class AppComponent implements OnInit {
 }
 
 export interface IAssunto {
-  id: number; 
-  idPai: number;
+  id: string; 
+  idPai: string;
   nivel: number;
   chave: string;
   hierarquia: string;
