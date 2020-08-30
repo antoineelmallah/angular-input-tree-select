@@ -18,28 +18,28 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   @Input() datasource: IDatasource;
 
-  private _idSelect = new BehaviorSubject(null);
+  private _idSelect: string = null;
 
   get idSelect(): string {
-    return this._idSelect.value;
+    return this._idSelect;
   }
 
   set idSelect(id: string) {
-    this.idSelecionado = id; 
-    this._idSelect.next(null);
+    if (id) this.idSelecionado = id; 
+    this._idSelect = null;
   }
 
-  private _idSelecionado = new BehaviorSubject(null);
+  private _idSelecionado = new BehaviorSubject<string>(null);
 
   get idSelecionado() {
     return this._idSelecionado.value;
   }
 
-  set idSelecionado(id: any) {
+  set idSelecionado(id: string) {
     this.noSelecionado = this.getCachePorId(id);
     this.popularFilhos(this.noSelecionado);
     this._idSelecionado.next(id);
-//    console.log(id)
+    this.idSelect = null;
   }
 
   noSelecionado: INoHierarquia;
@@ -100,6 +100,10 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
     return nos.reverse();
   }
 
+  get nivel(): number {
+    return this.nos.length + 1;
+  }
+
   disabled: boolean;
 
 
@@ -110,7 +114,7 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   itens = [];
 
-  nivel = 1;
+  //nivel = 1;
 
 
   constructor() { }
@@ -124,10 +128,11 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   selecionar(id: string) {
     this.idSelecionado = id;
+    this.idSelect = null;
   }
 
   limpar() {
-
+    this.idSelecionado = null;
   }
 
   private popularFilhos(no: INoHierarquia): void {
@@ -143,9 +148,9 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
   }
 
   // Implementação de ControlValueAccessor
-  writeValue(id: any): void {
+  writeValue(id: string): void {
     this.idSelecionado = id;
-    if (id || id === 0) {
+    if (id) {
       this.datasource.getNoComFilhos(id).subscribe(no => {
         this.noSelecionado = no;
       });
