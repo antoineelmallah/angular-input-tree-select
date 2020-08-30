@@ -1,5 +1,5 @@
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-  <mat-button-toggle *ngFor="let no of nos; let i = index" (click)="selecionar(no)" [disabled]="i + 1 === nos.length">{{ no?.chave }}</mat-button-toggle>
+  <mat-button-toggle *ngFor="let no of nos; let i = index" (click)="selecionar(no.id)" [disabled]="i + 1 === nos.length">{{ no?.chave }}</mat-button-toggle>
   <select [(ngModel)]="idSelecionado">
     <option [value]="null">Itens do {{ nivel }}º nível...</option>
     <option *ngFor="let item of filhos" [value]="item.id">{{ item.descricao ? item.descricao : item.chave }}</option>
@@ -10,27 +10,3 @@
   </select-->
   <mat-button-toggle (click)="limpar()"><i class="fa fa-trash text-danger"></i></mat-button-toggle>
 </mat-button-toggle-group>
-
-
-
-
-<!--button  class="d-inline p-2" *ngFor="let ch of chavesHierarquia; let i = index" (click)="selecionar(ch?.chave, i + 1)" [disabled]="i + 1 === chavesHierarquia.length">
-  {{ ch?.chave }}
-</button>
-<select #select (change)="selecionar(select.value)" *ngIf="filhos">
-  <option [value]="null">Itens do {{ nivel }}º nível...</option>
-  <option *ngFor="let item of filhos" [value]="item.id">{{ item.descricao ? item.descricao : item.chave }}</option>
-</select>
-<button (click)="limpar()"><i class="fa fa-trash text-danger"></i></button-->
-
-
-<!--button class="d-inline p-2" type="button">Teste1</button>
-<button class="d-inline p-2" type="button">Teste2</button>
-<select class="d-inline p-2">
-  <option>Teste1</option>
-  <option>Teste1</option>
-  <option>Teste1</option>
-  <option>Teste1</option>
-  <option>Teste1</option>
-</select>
-<button class="d-inline p-2" type="button">limpar</button-->

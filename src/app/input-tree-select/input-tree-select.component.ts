@@ -25,10 +25,7 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
   }
 
   set idSelecionado(id: any) {
-    console.log(id);
     this.noSelecionado = this.getCachePorId(id);
-//    console.log(this.cachePorNiveis)
-    console.log(this.noSelecionado);
     this.popularFilhos(this.noSelecionado);
     this._idSelecionado.next(id);
   }
@@ -113,8 +110,8 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
     });
   }
 
-  selecionar(no: INoHierarquia) {
-    console.log(no);
+  selecionar(id: string) {
+    this.idSelecionado = id;
   }
 
   limpar() {
