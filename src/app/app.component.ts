@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      assuntoPaiId: ['5', []],
+      assuntoPaiId: ['1', []],
     });
   }
 
