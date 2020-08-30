@@ -78,7 +78,7 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
   get filhos(): INoHierarquia[] {
     if (this.noSelecionado) {
       if (!this.noSelecionado.filhosPopulados) {
-        this.datasource.popularFilhos(this.noSelecionado);
+        this.popularFilhos(this.noSelecionado);
       }
       return this.noSelecionado.filhos;
     }
@@ -127,10 +127,11 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
   private popularFilhos(no: INoHierarquia): void {
     if (!no) return;
     if (!no.filhosPopulados) {
-      this.datasource.popularFilhos(no).subscribe(sucesso => {
-        if (sucesso) {
+      this.datasource.getFilhos(no.id).subscribe(filhos => {
+        if (filhos) {
           no.filhosPopulados = true;
-          this.adicionarAoCache(no.filhos);
+          no.filhos = filhos;
+          this.adicionarAoCache(filhos);
         }
       });
     }
@@ -175,5 +176,5 @@ export interface INoHierarquia {
 export interface IDatasource {
   getNoComFilhosEPais(id: string): Observable<INoHierarquia[]>;
   getPrimeiroNivel(): Observable<INoHierarquia[]>;
-  popularFilhos(no: INoHierarquia): Observable<boolean>;
+  getFilhos(id: string): Observable<INoHierarquia[]>;
 }

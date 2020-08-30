@@ -59,10 +59,9 @@ export class AppComponent implements OnInit {
           .filter(a => a.idPai === null)
           .map(a => this.assuntoParaNoHierarquia(a)));
       },
-      popularFilhos: (no: INoHierarquia) => {
+      getFilhos: (id: string) => {
         console.log('Executou popularFilhos');
-        this.popularFilhos(no);
-        return of(true);
+        return of(this.getFilhos(id));
       }
     };
   }
@@ -79,11 +78,14 @@ export class AppComponent implements OnInit {
   }
 
   private popularFilhos(no: INoHierarquia): void {
-    const filhos = this._assuntos
-      .filter(a => a.idPai === no.id)
-      .map(a => this.assuntoParaNoHierarquia(a));
     no.filhosPopulados = true;
-    no.filhos = filhos;
+    no.filhos = this.getFilhos(no.id);
+  }
+
+  private getFilhos(id: string): INoHierarquia[] {
+    return this._assuntos
+      .filter(a => a.idPai === id)
+      .map(a => this.assuntoParaNoHierarquia(a));
   }
 
   private assuntoParaNoHierarquia(assunto: IAssunto): INoHierarquia {
