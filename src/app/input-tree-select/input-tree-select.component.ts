@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, forwardRef, ViewChild, ElementRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -18,6 +18,17 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   @Input() datasource: IDatasource;
 
+  private _idSelect = new BehaviorSubject(null);
+
+  get idSelect(): string {
+    return this._idSelect.value;
+  }
+
+  set idSelect(id: string) {
+    this.idSelecionado = id; 
+    this._idSelect.next(null);
+  }
+
   private _idSelecionado = new BehaviorSubject(null);
 
   get idSelecionado() {
@@ -28,6 +39,7 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
     this.noSelecionado = this.getCachePorId(id);
     this.popularFilhos(this.noSelecionado);
     this._idSelecionado.next(id);
+//    console.log(id)
   }
 
   noSelecionado: INoHierarquia;

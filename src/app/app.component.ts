@@ -43,16 +43,19 @@ export class AppComponent implements OnInit {
   get datasource(): IDatasource {
     return {
       getNoComFilhos: (id: any) => {
+        console.log('Executou getNoComFilhos');
         const no = this.getNo(id);
         this.popularFilhos(no);
         return of(no);
       },
       getPrimeiroNivel: () => {
+        console.log('Executou getPrimeiroNivel');
         return of(this._assuntos
           .filter(a => a.idPai === null)
           .map(a => this.assuntoParaNoHierarquia(a)));
       },
       popularFilhos: (no: INoHierarquia) => {
+        console.log('Executou popularFilhos');
         this.popularFilhos(no);
         return of(true);
       }
