@@ -53,7 +53,8 @@ export class AppComponent implements OnInit {
           .map(a => this.assuntoParaNoHierarquia(a)));
       },
       popularFilhos: (no: INoHierarquia) => {
-        return of(this.popularFilhos(no));
+        this.popularFilhos(no);
+        return of(true);
       }
     };
   }
@@ -73,7 +74,7 @@ export class AppComponent implements OnInit {
       chave: assunto.chave,
       descricao: assunto.hierarquia,
       nivel: assunto.nivel,
-      pai: null,
+      paiId: assunto.idPai,
       filhosPopulados: false,
       filhos: []
     };
