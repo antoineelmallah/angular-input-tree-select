@@ -106,17 +106,6 @@ export class InputTreeSelectComponent implements ControlValueAccessor, AfterView
 
   disabled: boolean;
 
-
-
-  /////////////////////////////////////////
-
-  chavesHierarquia = [];
-
-  itens = [];
-
-  //nivel = 1;
-
-
   constructor() { }
 
   ngAfterViewInit() {
