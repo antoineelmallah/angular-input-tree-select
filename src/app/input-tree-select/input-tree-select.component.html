@@ -1,13 +1,13 @@
 <ul>
-  <li>idSelect: {{ idSelect }}</li>
-  <li>idSelecionado: {{ idSelecionado }}</li>
+  <li>idSelect: {{ idSelect | json }}</li>
+  <li>idSelecionado: {{ idSelecionado | json }}</li>
 </ul>
 
 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
   <mat-button-toggle *ngFor="let no of nos; let i = index" (click)="selecionar(no.id)" [disabled]="i + 1 === nos.length">{{ no?.chave }}</mat-button-toggle>
   <select [(ngModel)]="idSelect">
-    <option [value]="null">Itens do {{ nivel }}º nível...</option>
-    <option *ngFor="let item of filhos" [value]="item.id">{{ item.descricao ? item.descricao : item.chave }}</option>
+    <option [ngValue]="null">Itens do {{ nivel }}º nível...</option>
+    <option *ngFor="let item of filhos" [ngValue]="item.id">{{ item.descricao ? item.descricao : item.chave }}</option>
   </select>
   <!--select #select (change)="selecionar(select.value)" *ngIf="filhos">
     <option [value]="null">Itens do {{ nivel }}º nível...</option>
