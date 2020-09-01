@@ -4,5 +4,5 @@
     <option [ngValue]="null" disabled>Itens do {{ nivel }}º nível...</option>
     <option *ngFor="let item of filhos" [ngValue]="item.id">{{ item.descricao ? item.descricao : item.chave }}</option>
   </select>
-  <mat-button-toggle (click)="limpar()"><i class="fa fa-trash text-danger"></i></mat-button-toggle>
+  <mat-button-toggle (click)="limpar()">Limpar</mat-button-toggle>
 </mat-button-toggle-group>
